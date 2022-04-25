@@ -1,0 +1,24 @@
+{
+    "LOGIN": {
+        "sucess_logged": "Logado",
+        "fail_logged": "Falha ao logar!",
+        "username": "Nome de usuário",
+        "password": "Senha",
+        "copyright": "© 2021 solset.com, inc. Todos os direitos reservados."
+    },
+    "GLOBAL": {
+        "btn_save": "Salvar",
+        "btn_cancel": "Cancelar",
+        "btn_copy": "Copiar Source",
+        "btn_paste": "Colar Source",
+        "btn_close": "Fechar",
+        "btn_delete": "Deletar",
+        "btn_edit": "Editar",
+        "server_error": "Falha ao conectar com o servidor!",
+        "unexpected_error": "Desculpe, algum erro aconteceu!",
+        "search": "Buscar...",
+        "btn_go_back": "Voltar",
+        "confirm": "Confirmação",
+        "reset": "Resetar"
+    }
+}

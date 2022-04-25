@@ -1,0 +1,24 @@
+{
+    "LOGIN": {
+        "sucess_logged": "Online",
+        "fail_logged": "Failed to log in!",
+        "username": "Username",
+        "password": "Password",
+        "copyright": "© 2020 dressbox.com, inc. All rights reserved."
+    },
+    "GLOBAL": {
+        "btn_save": "Save",
+        "btn_cancel": "Cancel",
+        "btn_copy": "Copy Source",
+        "btn_paste": "Paste Source",
+        "btn_close": "Close",
+        "btn_delete": "Delete",
+        "btn_edit": "Edit",
+        "server_error": "Failed to connect to server!",
+        "unexpected_error": "Sorry, an unexpected error has occurred!",
+        "search": "Search...",
+        "btn_go_back": "Back",
+        "confirm": "Confirm",
+        "reset": "Reset"
+    }
+}
