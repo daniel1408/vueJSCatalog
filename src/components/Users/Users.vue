@@ -28,15 +28,9 @@
 
     <v-card class="mx-auto" flat>
       <v-container fluid class="container-users">
-        <loading
-          color="#34495e"
-          :width="64"
-          :height="64"
-          :active="loaderVisible"
-          :can-cancel="true"
-          loader="spinner"
-          class="loading"
-        ></loading>
+        <div class="loading" v-if="loaderVisible">
+          <rotate-square2 size="64px"></rotate-square2>
+        </div>
 
         <v-row v-if="!loaderVisible">
           <v-col cols="12" class="my-10">
@@ -248,7 +242,7 @@
 
 <script>
 import BaseEmpty from "@/components/Shared/BaseEmptyComponent";
-import Loading from "vue-loading-overlay";
+import { RotateSquare2 } from "vue-loading-spinner";
 import Component from "../Notification.vue";
 import UserAdd from "./UserAdd";
 import { mapState } from "vuex";
@@ -411,7 +405,7 @@ export default {
   props: {},
 
   components: {
-    Loading,
+    RotateSquare2,
     BaseEmpty,
     UserAdd
   }
@@ -493,7 +487,7 @@ export default {
 }
 
 .empty {
-  height: 70vh; 
+  height: 70vh;
   width: 100%;
 }
 </style>

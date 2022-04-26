@@ -27,15 +27,9 @@
     <v-divider></v-divider>
 
     <v-container fluid class="container-client">
-      <loading
-        color="#34495e"
-        :width="64"
-        :height="64"
-        :active="loaderVisible"
-        :can-cancel="true"
-        loader="spinner"
-        class="loading"
-      ></loading>
+      <div class="loading" v-if="loaderVisible">
+        <rotate-square2 size="64px"></rotate-square2>
+      </div>
 
       <v-row>
         <v-col cols="12" class="my-10">
@@ -205,11 +199,11 @@
 
 <script>
 import BaseEmpty from "@/components/Shared/BaseEmptyComponent";
-import Loading from "vue-loading-overlay";
 import ClientDetails from "./ClientDetails";
 import ClientAdd from "./ClientAdd";
 import LogAdd from "./../Logs/LogsAdd.vue";
 
+import { RotateSquare2 } from "vue-loading-spinner";
 import { getClientList } from "@/utils/functions.js";
 import { mapState } from "vuex";
 
@@ -348,11 +342,11 @@ export default {
   props: {},
 
   components: {
-    Loading,
     BaseEmpty,
     ClientDetails,
     ClientAdd,
-    LogAdd
+    LogAdd,
+    RotateSquare2
   }
 };
 </script>

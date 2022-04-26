@@ -3,13 +3,7 @@
     <v-toolbar flat>
       <v-toolbar-title class="title-card">Agenda do mês</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        @click="addLog(null)"
-        color="#41b883"
-        elevation="0"
-        small
-        dark
-      >
+      <v-btn @click="addLog(null)" color="#41b883" elevation="0" small dark>
         <v-icon class="mr-2" small>add</v-icon> Adicionar agenda para um cliente
       </v-btn>
     </v-toolbar>
@@ -18,15 +12,9 @@
 
     <v-card class="mx-auto" flat>
       <v-container fluid class="pa-1">
-        <loading
-          color="#34495e"
-          :width="64"
-          :height="64"
-          :active="loaderVisible"
-          :can-cancel="true"
-          loader="spinner"
-          class="loading"
-        ></loading>
+        <div class="loading" v-if="loaderVisible">
+          <rotate-square2 size="64px"></rotate-square2>
+        </div>
 
         <v-row dense v-if="!loaderVisible" class="pa-5 pt-0">
           <base-empty
@@ -238,10 +226,10 @@
 
 <script>
 import BaseEmpty from "@/components/Shared/BaseEmptyComponent";
-import Loading from "vue-loading-overlay";
 import Component from "../Notification.vue";
 import LogAdd from "./LogsAdd";
 
+import { RotateSquare2 } from "vue-loading-spinner";
 import { mapState } from "vuex";
 import { deleteLog } from "@/services/OrderService.js";
 import { getClientList } from "@/utils/functions.js";
@@ -468,19 +456,20 @@ export default {
   props: {},
 
   components: {
-    Loading,
+    // Loading,
     BaseEmpty,
-    LogAdd
+    LogAdd,
+    RotateSquare2
   }
 };
 </script>
 
 <style scoped>
 .loading {
-  display: flex;
-  align-items: center;
+  height: calc(100vh - 70px);
   justify-content: center;
-  height: 80vh;
+  align-items: center;
+  display: flex;
 }
 
 .log-title {

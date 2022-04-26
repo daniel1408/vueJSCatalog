@@ -8,15 +8,9 @@
 
     <v-card class="mx-auto" flat>
       <v-container fluid class="pa-0">
-        <loading
-          color="#34495e"
-          :width="64"
-          :height="64"
-          :active="loaderVisible"
-          :can-cancel="true"
-          loader="spinner"
-          class="loading"
-        ></loading>
+        <div class="loading" v-if="loaderVisible">
+          <rotate-square2 size="64px"></rotate-square2>
+        </div>
 
         <v-tabs
           v-if="!loaderVisible"
@@ -33,14 +27,10 @@
           <v-tab :href="`#tab-1`">Pendentes</v-tab>
           <v-tab :href="`#tab-2`">Analisados</v-tab>
 
-          <v-tab-item
-            :value="'tab-1'"
-            class="px-1"
-            style="max-height: 87vh; overflow: auto"
-          >
+          <v-tab-item :value="'tab-1'" class="px-1 tab-style">
             <base-empty
               :data="dataEmpty"
-              style="height: 70vh; width: 100%"
+              class="empty"
               v-if="!budgetPendenceList.length"
             ></base-empty>
 
@@ -86,14 +76,10 @@
             </v-row>
           </v-tab-item>
 
-          <v-tab-item
-            :value="'tab-2'"
-            class="px-1"
-            style="max-height: 87vh; overflow: auto"
-          >
+          <v-tab-item :value="'tab-2'" class="px-1 tab-style">
             <base-empty
               :data="dataFinishedEmpty"
-              style="height: 70vh; width: 100%"
+              class="empty"
               v-if="!budgetList.length"
             ></base-empty>
 
@@ -163,11 +149,11 @@
 
 <script>
 import firebase from "firebase";
-import Loading from "vue-loading-overlay";
 import BaseEmpty from "@/components/Shared/BaseEmptyComponent";
 import BudgetDetails from "./BudgetDetails.vue";
 import Component from "../Notification.vue";
 
+import { RotateSquare2 } from "vue-loading-spinner";
 import { mapState, mapActions } from "vuex";
 import { groupBy } from "@/utils/functions.js";
 import { getUsers } from "@/services/OrderService.js";
@@ -312,7 +298,7 @@ export default {
   props: {},
 
   components: {
-    Loading,
+    RotateSquare2,
     BaseEmpty,
     BudgetDetails
   }
@@ -398,5 +384,15 @@ export default {
   text-transform: capitalize;
   font-size: 13px;
   color: #606060 !important;
+}
+
+.empty {
+  height: calc(100vh - 125px);
+  width: 100%;
+}
+
+.tab-style {
+  height: calc(100vh - 120px);
+  overflow: auto;
 }
 </style>

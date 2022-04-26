@@ -1,5 +1,5 @@
 <template>
-  <v-card flat class="content-width">
+  <v-card flat class="content-width" style="height: 100vh">
     <v-toolbar flat color="#f5f5f5">
       <v-toolbar-title class="title-card">Propostas</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -8,15 +8,9 @@
 
     <v-card class="mx-auto" flat>
       <v-container fluid class="pa-0">
-        <loading
-          color="#34495e"
-          :width="64"
-          :height="64"
-          :active="loaderVisible"
-          :can-cancel="true"
-          loader="spinner"
-          class="loading"
-        ></loading>
+        <div class="loading" v-if="loaderVisible">
+          <rotate-square2 size="64px"></rotate-square2>
+        </div>
 
         <v-tabs
           v-if="!loaderVisible"
@@ -33,15 +27,11 @@
           <v-tab :href="`#tab-1`">Validados</v-tab>
           <v-tab :href="`#tab-2`">Com pendências</v-tab>
 
-          <v-tab-item
-            :value="'tab-1'"
-            class="px-1"
-            style="max-height: 87vh; overflow: auto"
-          >
+          <v-tab-item :value="'tab-1'" class="px-1 tab-style">
             <base-empty
-              :data="dataEmpty"
-              style="height: 70vh; width: 100%"
               v-if="!orderListP.length"
+              :data="dataEmpty"
+              class="empty"
             ></base-empty>
 
             <v-row
@@ -97,16 +87,13 @@
             </v-row>
           </v-tab-item>
 
-          <v-tab-item
-            :value="'tab-2'"
-            class="px-1"
-            style="max-height: 87vh; overflow: auto"
-          >
+          <v-tab-item :value="'tab-2'" class="px-1 tab-style">
             <base-empty
-              :data="dataFinishedEmpty"
-              style="height: 70vh; width: 100%"
               v-if="!orderListF.length"
+              :data="dataFinishedEmpty"
+              class="empty"
             ></base-empty>
+
             <v-row
               dense
               class="px-4"
@@ -192,18 +179,18 @@
 
 <script>
 import firebase from "firebase";
-import Loading from "vue-loading-overlay";
 import BaseEmpty from "@/components/Shared/BaseEmptyComponent";
 import ProposalDetails from "./ProposalDetails.vue";
 import Component from "../Notification.vue";
 import { mapState, mapActions } from "vuex";
 import { groupBy, getUsers } from "@/utils/functions.js";
+import { RotateSquare2 } from "vue-loading-spinner";
 
 const masterList = {
   UBERLANDIA: "Uberlândia",
   BRASILIA: "Brasília",
   FRANCA: "Franca",
-  PASSOS: "Passos",
+  PASSOS: "Passos"
 };
 
 export default {
@@ -221,7 +208,7 @@ export default {
     proposalDetail: false,
     userToken: null,
     userList: [],
-    master: masterList,
+    master: masterList
   }),
 
   created() {
@@ -233,13 +220,13 @@ export default {
     ...mapActions("LoginStore", ["ADD_JWT", "ADD_STORE"]),
 
     getOrderList() {
-          // updateDate
-          this.orderListP = []
-          this.orderListF = []
-    
-          setTimeout(() => {
-            this.loaderVisible = false;
-          }, 500);
+      // updateDate
+      this.orderListP = [];
+      this.orderListF = [];
+
+      setTimeout(() => {
+        this.loaderVisible = false;
+      }, 500);
     },
 
     openDetails(order) {
@@ -251,7 +238,7 @@ export default {
       return val && val !== "0"
         ? val.toLocaleString("pt-br", {
             style: "currency",
-            currency: "BRL",
+            currency: "BRL"
           })
         : "R$ 0,00";
     },
@@ -273,7 +260,7 @@ export default {
             ></Component>,
             {
               hideProgressBar: true,
-              timeout: 2000,
+              timeout: 2000
             }
           );
         });
@@ -290,7 +277,7 @@ export default {
     },
 
     getConsulor(requestToken) {
-      const user = this.userList.find((x) => x.requestToken === requestToken);
+      const user = this.userList.find(x => x.requestToken === requestToken);
       return user ? user.name : "Não consta";
     },
 
@@ -299,7 +286,7 @@ export default {
         weekday: "short",
         year: "numeric",
         month: "short",
-        day: "numeric",
+        day: "numeric"
       };
 
       if (date) {
@@ -316,7 +303,7 @@ export default {
     reloadProposalList() {
       this.proposalDetail = false;
       this.getOrderList();
-    },
+    }
   },
 
   computed: {
@@ -326,10 +313,10 @@ export default {
       return {
         icon: {
           name: "archive",
-          size: 55,
+          size: 55
         },
         title: "Nenhuma proposta pendente",
-        subtitle: "Aguarde até que um usuário realize uma proposta",
+        subtitle: "Aguarde até que um usuário realize uma proposta"
       };
     },
 
@@ -337,10 +324,10 @@ export default {
       return {
         icon: {
           name: "archive",
-          size: 55,
+          size: 55
         },
         title: "Nenhuma proposta finalizado",
-        subtitle: "Aguarde até que um usuário finalize uma proposta",
+        subtitle: "Aguarde até que um usuário finalize uma proposta"
       };
     },
 
@@ -350,17 +337,16 @@ export default {
 
     finishedList() {
       return groupBy(this.orderListF, "updateDate");
-    },
+    }
   },
 
   components: {
-    Loading,
+    RotateSquare2,
     BaseEmpty,
-    ProposalDetails,
-  },
+    ProposalDetails
+  }
 };
 </script>
-
 
 <style scoped>
 .loading {
@@ -447,5 +433,15 @@ export default {
   font-size: 13px;
   color: #606060 !important;
   letter-spacing: 0;
+}
+
+.empty {
+  height: calc(100vh - 125px);
+  width: 100%;
+}
+
+.tab-style {
+  height: calc(100vh - 120px);
+  overflow: auto;
 }
 </style>

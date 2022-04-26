@@ -3,12 +3,7 @@
     <v-toolbar flat>
       <v-toolbar-title class="title-card">Manutenção</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        color="#41b883"
-        elevation="0"
-        small
-        dark
-      >
+      <v-btn color="#41b883" elevation="0" small dark>
         <v-icon class="mr-2" small>add</v-icon> Adicionar
       </v-btn>
     </v-toolbar>
@@ -17,21 +12,12 @@
 
     <v-card class="mx-auto" flat>
       <v-container fluid class="pa-1">
-        <loading
-          color="#34495e"
-          :width="64"
-          :height="64"
-          :active="loaderVisible"
-          :can-cancel="true"
-          loader="spinner"
-          class="loading"
-        ></loading>
+        <div class="loading" v-if="loaderVisible">
+          <rotate-square2 size="64px"></rotate-square2>
+        </div>
 
         <v-row v-if="!loaderVisible" dense>
-          <base-empty
-            :data="dataEmpty"
-            style="height: 70vh; width: 100%"
-          ></base-empty>
+          <base-empty :data="dataEmpty" class="empty"></base-empty>
         </v-row>
       </v-container>
     </v-card>
@@ -50,7 +36,7 @@
 
 <script>
 import BaseEmpty from "@/components/Shared/BaseEmptyComponent";
-import Loading from "vue-loading-overlay";
+import { RotateSquare2 } from "vue-loading-spinner";
 import { mapState } from "vuex";
 
 export default {
@@ -86,18 +72,18 @@ export default {
   props: {},
 
   components: {
-    Loading,
-    BaseEmpty
+    BaseEmpty,
+    RotateSquare2
   }
 };
 </script>
 
 <style scoped>
 .loading {
-  display: flex;
-  align-items: center;
+  height: calc(100vh - 70px);
   justify-content: center;
-  height: 80vh;
+  align-items: center;
+  display: flex;
 }
 
 .title-modal {
@@ -117,5 +103,10 @@ export default {
   flex-direction: column;
   width: 100%;
   margin-bottom: 20px;
+}
+
+.empty {
+  height: calc(100vh - 65px);
+  width: 100%;
 }
 </style>
