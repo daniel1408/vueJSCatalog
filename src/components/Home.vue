@@ -3,7 +3,12 @@
     <v-card class="d-flex" style="height: 100%">
       <v-navigation-drawer style="border-radius: 0;" color="#F5F5F5" permanent>
         <v-toolbar class="toolbar-top" color="#F5F5F5" flat>
-          <v-toolbar-title class="title-card">Propostas</v-toolbar-title>
+          <v-img
+            src="@/assets/initial-logo.png"
+            lazy-src="@/assets/initial-logo.png"
+            width="200"
+            alt="IMG"
+          ></v-img>
         </v-toolbar>
 
         <v-list nav dense>
@@ -398,5 +403,6 @@ export default {
 
 .toolbar-top {
   margin-bottom: 30px;
+  margin-top: 20px;
 }
 </style>
